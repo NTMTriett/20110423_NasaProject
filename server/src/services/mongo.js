@@ -1,18 +1,20 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const MONGO_URL=process.env.MONGO_URL;
+const uri = 'mongodb+srv://ntmtriet:123@cluster0.tnats9m.mongodb.net/';
 
-mongoose.connection.once('open',()=>{
-    console.log('MongoDB connection success!');
-});
 
-mongoose.connection.once('error',(err)=>{
-    console.error(err);
-});
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.error('Error connecting to MongoDB:', err);
+  });
 
+  
 async function mongoConnect(){
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(uri);
 }
 async function mongoDisconnect(){
     await mongoose.disconnect();
